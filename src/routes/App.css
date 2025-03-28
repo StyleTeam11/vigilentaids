@@ -1,0 +1,162 @@
+.animated-text {
+  animation: fadeIn 2s infinite alternate;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animated-text {
+  animation: fadeIn 2s infinite alternate;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.custom-button {
+  color: white; 
+  border-color: red; 
+  transition: all 0.3s ease; 
+}
+
+.custom-button:hover {
+  background-color: black; 
+  color: red; 
+}
+.animated-text {
+  animation: fadeIn 3s infinite alternate;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.custom-button {
+  transition: all 0.3s ease; 
+}
+
+.custom-button:hover {
+  background-color: black; 
+  color: red; 
+}
+/* General Page Styling */
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Title Styling */
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeInDown 1s ease-out;
+}
+
+/* Input Styling */
+.input-destination {
+  width: 50%;
+  padding: 10px 15px;
+  border-radius: 30px; /* Rounded pill shape */
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  color: black;
+  font-size: 1rem;
+}
+
+/* Button Styling */
+.btn-submit {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: red; 
+  color: white;
+  border: none;
+  border-radius: 30px;
+  animation: pulse 2s infinite;
+}
+
+.btn-submit:hover {
+  background-color: red;
+}
+
+.btn-share {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: 2px solid white;
+  color: white;
+  background-color: transparent;
+  border-radius: 30px; /* Rounded pill shape */
+}
+
+.btn-share:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Map Container */
+.map-container {
+  width: 100%;
+  max-width: 1000px;
+  height: 500px;
+  margin-top: 20px;
+}
+
+/* Animation Effects */
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

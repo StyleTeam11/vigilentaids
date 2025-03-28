@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import WelcomeScreen from "./routes/WelcomeScreen";
+import LoginScreen from "./routes/LoginScreen";
+import HomeScreen from "./routes/HomeScreen";
+import LocationScreen from "./routes/LocationScreen";
+import CameraScreen from "./routes/CameraScreen";
+import TimeDateScreen from "./routes/TimeDateScreen";
+import SettingScreen from "./routes/SettingScreen";
 
-function App() {
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<WelcomeScreen />} />
+        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/home" element={<HomeScreen />} />
+        <Route path="/location" element={<LocationScreen />} />
+        <Route path="/camera" element={<CameraScreen />} />
+        <Route path="/timedate" element={<TimeDateScreen />} />
+        <Route path="/settings" element={<SettingScreen />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
