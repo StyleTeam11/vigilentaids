@@ -4,8 +4,9 @@
   "private": true,
   "dependencies": {
     "@capacitor-community/text-to-speech": "^6.0.0",
-    "@capacitor/core": "^7.0.0",
-    "@capacitor/geolocation": "^7.1.1",
+    "@capacitor/android": "^7.2.0",
+    "@capacitor/core": "^7.2.0",
+    "@capacitor/geolocation": "^4.0.0",
     "@capacitor/ios": "^7.0.0",
     "@nextui-org/react": "^2.6.11",
     "@react-google-maps/api": "^2.20.6",
