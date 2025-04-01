@@ -1,0 +1,265 @@
+:root {
+    --primary-red: #ff3e3e;
+    --dark-bg: #1a1a1a;
+    --robot-blue: white;
+    --robot-silver: #c0c0c0;
+    --panel-dark: #2d2d2d;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .error-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--dark-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+  }
+  
+  /* Robot Design */
+  .robot-container {
+    position: relative;
+    width: 200px;
+    height: 300px;
+    margin-bottom: 2rem;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .robot-head {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    background-color: var(--robot-blue);
+    border-radius: 50% 50% 40% 40%;
+    border: 5px solid var(--robot-silver);
+    z-index: 3;
+  }
+  
+  .robot-eye {
+    position: absolute;
+    width: 20px;
+    height: 25px;
+    background-color: white;
+    border-radius: 50%;
+    top: 35px;
+  }
+  
+  .left-eye {
+    left: 20px;
+    transform: rotate(-10deg);
+  }
+  
+  .right-eye {
+    right: 20px;
+    transform: rotate(10deg);
+  }
+  
+  .robot-mouth {
+    position: absolute;
+    width: 40px;
+    height: 10px;
+    background-color: white;
+    border-radius: 5px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .robot-body {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 140px;
+    background-color: var(--robot-blue);
+    border-radius: 20px;
+    border: 5px solid var(--robot-silver);
+    z-index: 2;
+  }
+  
+  .robot-panel {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 30px;
+    background-color: var(--panel-dark);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+  }
+  
+  .panel-light {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+  }
+  
+  .panel-light.red {
+    background-color: var(--primary-red);
+    animation: blink 1.5s infinite;
+  }
+  
+  .panel-light.yellow {
+    background-color: #ffcc00;
+    animation: blink 1.5s infinite 0.5s;
+  }
+  
+  .panel-light.green {
+    background-color: #00cc66;
+    animation: blink 1.5s infinite 1s;
+  }
+  
+  .robot-arm {
+    position: absolute;
+    width: 20px;
+    height: 80px;
+    background-color: var(--robot-silver);
+    top: 110px;
+    z-index: 1;
+  }
+  
+  .left-arm {
+    left: 20px;
+    transform: rotate(20deg);
+  }
+  
+  .right-arm {
+    right: 20px;
+    transform: rotate(-20deg);
+  }
+  
+  .robot-base {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 30px;
+    background-color: var(--robot-silver);
+    border-radius: 10px 10px 0 0;
+    z-index: 0;
+  }
+  
+  /* Error Message */
+  .error-message {
+    text-align: center;
+    z-index: 4;
+  }
+  
+  .error-title {
+    color: var(--primary-red);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(255, 62, 62, 0.5);
+  }
+  
+  .error-text {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  .error-text p {
+    margin: 0.5rem 0;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+  }
+  
+  .goodbye {
+    color: var(--robot-silver);
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    margin-top: 1rem;
+    animation: fadeInOut 2s infinite;
+  }
+  
+  /* Particles */
+  .error-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+  
+  .particle {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: float-particle 5s infinite ease-in-out;
+  }
+  
+  /* Animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  
+  @keyframes float-particle {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-20px) translateX(-10px); }
+    50% { transform: translateY(-40px) translateX(10px); }
+    75% { transform: translateY(-20px) translateX(10px); }
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .robot-container {
+      width: 150px;
+      height: 225px;
+    }
+  
+    .robot-head {
+      width: 80px;
+      height: 80px;
+    }
+  
+    .robot-body {
+      width: 90px;
+      height: 105px;
+      top: 70px;
+    }
+  
+    .robot-arm {
+      height: 60px;
+      top: 85px;
+    }
+  
+    .robot-eye {
+      width: 15px;
+      height: 20px;
+      top: 30px;
+    }
+  
+    .robot-mouth {
+      width: 30px;
+      height: 8px;
+      bottom: 15px;
+    }
+  }

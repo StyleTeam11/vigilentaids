@@ -9,17 +9,32 @@ const App: React.FC = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [hasInternet, setHasInternet] = useState(true);
   const [ttsSupported, setTtsSupported] = useState(false);
+  const [isCheckingConnection, setIsCheckingConnection] = useState(false);
 
-  // Check TTS support and internet connection
+  // Enhanced internet connection check
+  const checkInternetConnection = async () => {
+    setIsCheckingConnection(true);
+    try {
+      const response = await fetch("https://www.google.com/logo.ico", {
+        mode: 'no-cors',
+        cache: 'no-store'
+      });
+      setHasInternet(true);
+    } catch (error) {
+      setHasInternet(false);
+    } finally {
+      setIsCheckingConnection(false);
+    }
+  };
+
   useEffect(() => {
     setTtsSupported('speechSynthesis' in window);
-    setHasInternet(navigator.onLine);
+    checkInternetConnection();
 
     const timer = setTimeout(() => setShowMessage(true), 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Speak function with Android/Web support
   const speak = (text: string) => {
     if (!ttsSupported) return;
 
@@ -27,41 +42,35 @@ const App: React.FC = () => {
     utterance.rate = 0.9;
     utterance.pitch = 1.1;
     utterance.lang = 'en-US';
-
-    // End speech and reset the flag
     utterance.onend = () => setIsSpeaking(false);
 
-    // Start speaking
     setIsSpeaking(true);
     window.speechSynthesis.speak(utterance);
   };
 
-  // Stop speech immediately
   const stopSpeech = () => {
     window.speechSynthesis.cancel();
     setIsSpeaking(false);
   };
 
-  // Initial welcome message
   useEffect(() => {
     if (showMessage && ttsSupported) {
       speak(
         hasInternet
-          ? "Welcome to Vigilent Aids. Tap anywhere to continue."
-          : "Please check your internet connection."
+          ? "Tap anywhere to continue."
+          : "No internet connection detected. Please check your network."
       );
     }
   }, [showMessage, hasInternet, ttsSupported]);
 
   const handleScreenClick = () => {
-    stopSpeech(); // Stop speech immediately when tapped
+    stopSpeech();
 
     if (!hasInternet) {
-      speak("No internet connection. Please check your network.");
+      checkInternetConnection();
       return;
     }
 
-    // Fade out the welcome screen and navigate to the login page
     document.querySelector('.welcome-container')?.classList.add('fade-out');
     setTimeout(() => navigate("/login"), 500);
   };
@@ -85,12 +94,36 @@ const App: React.FC = () => {
         
         {showMessage && (
           <div className="instruction-message">
-            <p>{hasInternet ? "Tap anywhere to continue" : "No internet connection"}</p>
-            <div className="pulse-circle"></div>
-            {ttsSupported && (
+            {isCheckingConnection ? (
+              <div className="connection-status">
+                <div className="spinner"></div>
+                <p>Checking connection...</p>
+              </div>
+            ) : hasInternet ? (
+              <>
+                <p>Tap anywhere to continue</p>
+                <div className="pulse-circle"></div>
+              </>
+            ) : (
+              <div className="connection-status error">
+                <div className="spinner error"></div>
+                <p>No internet connection</p>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    checkInternetConnection();
+                  }}
+                  className="btn btn-outline-light mt-3"
+                >
+                  Retry Connection
+                </button>
+              </div>
+            )}
+            
+            {ttsSupported && hasInternet && !isCheckingConnection && (
               <button 
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevents the screen tap event from firing
+                  e.stopPropagation();
                   speak("Tap anywhere to continue");
                 }}
                 className="btn btn-outline-light mt-3"

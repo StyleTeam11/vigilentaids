@@ -3,18 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@capacitor/android": "^6.2.1",
-    "@capacitor/core": "^6.2.1",
-    "@capacitor/ios": "^6.2.1",
+    "@capacitor-community/text-to-speech": "^6.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/geolocation": "^7.1.1",
+    "@capacitor/ios": "^7.0.0",
+    "@nextui-org/react": "^2.6.11",
+    "@react-google-maps/api": "^2.20.6",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
+    "@types/maplibre-gl": "^1.13.2",
     "@types/node": "^16.18.126",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "bootstrap": "^5.3.3",
+    "maplibre-gl": "^5.3.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.4.1",
@@ -47,6 +52,6 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "^6.2.1"
+    "@capacitor/cli": "^7.2.0"
   }
 }
