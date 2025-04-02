@@ -1,0 +1,107 @@
+/* Base Styles */
+.internet-check-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121212;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .internet-check-card {
+    background-color: black;
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    border: 1px solid #2e2e2e;
+  }
+  
+  .icon-container {
+    margin-bottom: 20px;
+  }
+  
+  /* Offline State */
+  .offline-title {
+    color: red;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .offline-text {
+    color: #e0e0e0;
+    font-size: 16px;
+    margin-bottom: 25px;
+  }
+  
+  /* Online State */
+  .online-title {
+    color: red;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .online-text {
+    color: #e0e0e0;
+    font-size: 16px;
+    margin-bottom: 25px;
+  }
+  
+  /* Countdown */
+  .countdown {
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  
+  .countdown-number {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  /* Progress Bar */
+  .progress-bar {
+    height: 6px;
+    background-color: white;
+    border-radius: 3px;
+    margin-bottom: 25px;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    width: 100%;
+    background-color: #ff3e3e;
+    animation: progressAnimation 5s linear forwards;
+  }
+  
+  /* Button */
+  .retry-button {
+    background-color: #ff3e3e;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+  
+  .retry-button:hover {
+    background-color: #ff1e1e;
+    transform: translateY(-2px);
+  }
+  
+  /* Animation */
+  @keyframes progressAnimation {
+    0% { width: 100%; }
+    100% { width: 0%; }
+  }

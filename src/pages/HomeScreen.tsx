@@ -36,7 +36,7 @@ const HomeScreen: React.FC = () => {
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 0.9;
-      utterance.pitch = 6;
+      utterance.pitch = 1;
       utterance.lang = "en-US";
       window.speechSynthesis.speak(utterance);
     }
