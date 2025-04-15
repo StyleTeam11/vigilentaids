@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/CheckInternetPage.css";
 
-const CheckInternetPage: React.FC = () => {
+const VeeScreen: React.FC = () => {
   const navigate = useNavigate();
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
   const [countdown, setCountdown] = useState(2);
@@ -24,8 +24,20 @@ const CheckInternetPage: React.FC = () => {
       setIsOffline(offlineStatus);
 
       if (offlineStatus) {
-        speak("No internet connection detected. You will be redirected shortly.");
+        speak("No internet connection detected. Please check your network.");
         navigate("/error");
+      } else {
+        // Redirect when online (after countdown)
+        const timer = setInterval(() => {
+          setCountdown((prev) => {
+            if (prev <= 1) {
+              clearInterval(timer);
+              window.location.href = "https://www.google.com/search?q=yolo&rlz=1C1ONGR_enZA1151ZA1151&oq=yolo&gs_lcrp=EgZjaHJvbWUyDAgAEEUYORixAxiABDIICAEQABgDGAoyDQgCEC4YrwEYxwEYgAQyBwgDEAAYgAQyBwgEEAAYgAQyBwgFEC4YgAQyBwgGEAAYgAQyBwgHEAAYgAQyDQgIEC4YrwEYxwEYgAQyBwgJEAAYjwLSAQgzNDYyajBqNKgCALACAQ&sourceid=chrome&ie=UTF-8";
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
       }
     };
 
@@ -38,22 +50,6 @@ const CheckInternetPage: React.FC = () => {
       window.removeEventListener("online", checkInternet);
     };
   }, [navigate]);
-
-  useEffect(() => {
-    if (isOffline) {
-      const timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            window.location.href = "www.google.com";
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-      return () => clearInterval(timer);
-    }
-  }, [isOffline]);
 
   return (
     <div className="internet-check-container">
@@ -80,14 +76,8 @@ const CheckInternetPage: React.FC = () => {
             </div>
             <h1 className="offline-title">CONNECTION LOST</h1>
             <p className="offline-text">
-              Network unavailable. Checking alternatives...
+              Network unavailable. Please connect to the internet.
             </p>
-            <div className="countdown">
-              REDIRECTING IN <span className="countdown-number">{countdown}</span> SECONDS
-            </div>
-            <div className="progress-bar">
-              <div className="progress-fill"></div>
-            </div>
             <button 
               className="retry-button"
               onClick={() => window.location.reload()}
@@ -104,7 +94,7 @@ const CheckInternetPage: React.FC = () => {
                 height="80"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#ffffff"
+                stroke="#4CAF50"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -116,7 +106,13 @@ const CheckInternetPage: React.FC = () => {
               </svg>
             </div>
             <h1 className="online-title">CONNECTION ACTIVE</h1>
-            <p className="online-text">Secure network established</p>
+            <p className="online-text">Redirecting to secure network...</p>
+            <div className="countdown">
+              REDIRECTING IN <span className="countdown-number">{countdown}</span> SECONDS
+            </div>
+            <div className="progress-bar">
+              <div className="progress-fill"></div>
+            </div>
           </>
         )}
       </div>
@@ -124,4 +120,4 @@ const CheckInternetPage: React.FC = () => {
   );
 };
 
-export default CheckInternetPage;
+export default VeeScreen;

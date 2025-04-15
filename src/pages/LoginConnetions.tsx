@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/CheckInternetPage.css";
 
-const VeeScreen: React.FC = () => {
+const LoginConnetions: React.FC = () => {
   const navigate = useNavigate();
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
   const [countdown, setCountdown] = useState(2);
@@ -32,7 +32,7 @@ const VeeScreen: React.FC = () => {
           setCountdown((prev) => {
             if (prev <= 1) {
               clearInterval(timer);
-              window.location.href = "https://ai-assistance-one.vercel.app/";
+              window.location.href = "https://vigilentlogin.vercel.app/";
               return 0;
             }
             return prev - 1;
@@ -120,4 +120,4 @@ const VeeScreen: React.FC = () => {
   );
 };
 
-export default VeeScreen;
+export default LoginConnetions;

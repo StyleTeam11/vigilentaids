@@ -1,20 +1,91 @@
-.turn-by-turn-directions {
-  margin-top: 20px;
+/* General Styling */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #000; /* Black background */
+  color: #FFF; /* White text color */
+}
+
+/* Map Container */
+.map-container {
+  height: 50vh; /* Adjusted height for better layout */
+  background: #1A1A1A; /* Dark gray for fallback */
+  border: 2px solid red; /* Red border for emphasis */
+  border-radius: 10px;
+  margin: 20px auto;
+  box-shadow: 0 4px 10px rgba(230, 57, 70, 0.8);
+}
+
+/* Route Content Styling */
+.route-content {
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: center;
+  padding: 20px;
+  background-color: white; /* Dark gray background */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Input Field Styling */
+.route-content input {
+  background-color: black; /* White background */
+  border: 1px solid #E63946; /* Red border for matching theme */
+  color: white; /* Black text for contrast */
   padding: 10px;
-  background-color: #f9f9f9;
+  border-radius: 5px;
+  font-size: 1rem;
 }
 
-.instruction-step {
-  margin-bottom: 10px;
+.route-content input:focus {
+  outline: none;
+  box-shadow: 0 0 5px red; /* Red glow on focus */
 }
 
-.instruction-step.active {
+/* Button Styling */
+.route-content button {
+  background-color: red; /* Red background */
+  color: #FFF; /* White text */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
   font-weight: bold;
-  color: #e63946;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.step-buttons {
+.route-content button:disabled {
+  background-color: #5A5A5A; /* Gray for disabled state */
+  cursor: not-allowed;
+}
+
+.route-content button:hover:enabled {
+  background-color: #B53038; /* Darker red on hover */
+  transform: scale(1.05); /* Slight scale effect */
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #E63946; /* Red text for errors */
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Route Summary Styling */
+.route-summary {
   margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
+  background-color: #1A1A1A; /* Dark gray background */
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.route-summary p {
+  font-size: 1.1rem;
+  color: #FFF; /* White text */
+}
+
+.route-summary strong {
+  color: #E63946; /* Red for strong emphasis */
 }

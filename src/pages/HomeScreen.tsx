@@ -40,8 +40,9 @@ const HomeScreen: React.FC = () => {
       utterance.lang = "en-US";
       window.speechSynthesis.speak(utterance);
     }
+   
   };
-
+   
   const handleButtonHover = (text: string) => {
     speak(text);
   };
@@ -57,18 +58,7 @@ const HomeScreen: React.FC = () => {
           <p className="subtitle">Your Intelligent Assistance Portal</p>
         </div>
 
-        <div className="button-grid">
-          <Link
-            to="/navigation"
-            className="nav-button direction-button"
-            onMouseEnter={() => handleButtonHover("Navigation")}
-            onFocus={() => handleButtonHover("Navigation")}
-          >
-            <span className="button-icon">🧭</span>
-            <span className="button-text">Navigation</span>
-            <span className="button-hover-effect"></span>
-          </Link>
-
+        
           <Link
             to="/location"
             className="nav-button direction-button"
@@ -103,17 +93,6 @@ const HomeScreen: React.FC = () => {
           </Link>
 
           <Link
-            to="/timedate"
-            className="nav-button time-button"
-            onMouseEnter={() => handleButtonHover("Time and Date")}
-            onFocus={() => handleButtonHover("Time and Date")}
-          >
-            <span className="button-icon">⏰</span>
-            <span className="button-text">Time & Date</span>
-            <span className="button-hover-effect"></span>
-          </Link>
-
-          <Link
             to="/vee"
             className="nav-button settings-button"
             onMouseEnter={() => handleButtonHover("Vee Assistance")}
@@ -123,7 +102,16 @@ const HomeScreen: React.FC = () => {
             <span className="button-text">Vee Assistance</span>
             <span className="button-hover-effect"></span>
           </Link>
-        </div>
+          <Link
+            to="/settings"
+            className="nav-button settings-button"
+            onMouseEnter={() => handleButtonHover("Account Settings")}
+            onFocus={() => handleButtonHover("Account Settings")}
+          >
+          <span className="button-icon">⚙️</span>
+            <span className="button-text">Account Settings</span>
+            <span className="button-hover-effect"></span>
+          </Link>
       </div>
 
       <div className="background-pattern"></div>

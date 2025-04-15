@@ -24,7 +24,7 @@ interface Address {
 }
 
 const LocationScreen = () => {
-  const [coordinates, setCoordinates] = useState<{lat: number, lng: number} | null>(null);
+  const [coordinates, setCoordinates] = useState<{ lat: number; lng: number } | null>(null);
   const [fullAddress, setFullAddress] = useState<string>("");
   const [displayAddress, setDisplayAddress] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -83,30 +83,22 @@ const LocationScreen = () => {
     }
   };
 
-  const formatAddress = (address: Address): {full: string, display: string} => {
-    const street = address.road ? 
-      `${address.road}${address.house_number ? ' ' + address.house_number : ''}` : 
-      null;
+  const formatAddress = (address: Address): { full: string; display: string } => {
+    const street = address.road
+      ? `${address.road}${address.house_number ? " " + address.house_number : ""}`
+      : null;
     const city = address.town || address.city || address.village || address.suburb;
     const region = address.state || address.county;
-    
-    const fullAddressParts = [
-      street,
-      city,
-      region,
-      address.postcode,
-      address.country
-    ].filter(Boolean).join(', ');
 
-    const displayParts = [
-      street,
-      city,
-      region
-    ].filter(Boolean).join(', ');
+    const fullAddressParts = [street, city, region, address.postcode, address.country]
+      .filter(Boolean)
+      .join(", ");
+
+    const displayParts = [street, city, region].filter(Boolean).join(", ");
 
     return {
       full: fullAddressParts || "Your current location",
-      display: displayParts || "Your current location"
+      display: displayParts || "Your current location",
     };
   };
 
@@ -116,17 +108,41 @@ const LocationScreen = () => {
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
       );
       const data = await response.json();
-      
+
       if (data.address) {
         const formatted = formatAddress(data.address);
         speak(`Your current location is ${formatted.display}`);
         return formatted;
       }
-      return {full: "Your current location", display: "Your current location"};
+      return { full: "Your current location", display: "Your current location" };
     } catch (error) {
       console.error("Error fetching address:", error);
       speak("Unable to determine your exact location");
-      return {full: "Your current location", display: "Your current location"};
+      return { full: "Your current location", display: "Your current location" };
+    }
+  };
+
+  const saveLocationToDB = async (
+    latitude: number,
+    longitude: number,
+    fullAddress: string,
+    displayAddress: string
+  ) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/locations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ latitude, longitude, fullAddress, displayAddress }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save location");
+      }
+      console.log("Location saved successfully");
+    } catch (error) {
+      console.error("Error saving location:", error);
     }
   };
 
@@ -134,7 +150,7 @@ const LocationScreen = () => {
     setIsLoading(true);
     setError(null);
     speak("Getting your location", true);
-    
+
     if (!navigator.geolocation) {
       setError("Geolocation not supported");
       speak("Geolocation is not supported by this browser.", true);
@@ -147,17 +163,19 @@ const LocationScreen = () => {
         navigator.geolocation.getCurrentPosition(resolve, reject, {
           enableHighAccuracy: true,
           timeout: 15000,
-          maximumAge: 0
+          maximumAge: 0,
         });
       });
 
       const { latitude, longitude } = position.coords;
-      setCoordinates({lat: latitude, lng: longitude});
-      
-      const {full, display} = await getAddress(latitude, longitude);
+      setCoordinates({ lat: latitude, lng: longitude });
+
+      const { full, display } = await getAddress(latitude, longitude);
       setFullAddress(full);
       setDisplayAddress(display);
-      
+
+      // Save location to MongoDB
+      await saveLocationToDB(latitude, longitude, full, display);
     } catch (err) {
       const error = err as GeolocationPositionError;
       let errorMessage = "Unable to retrieve your location";
@@ -168,7 +186,7 @@ const LocationScreen = () => {
       } else if (error.code === error.POSITION_UNAVAILABLE) {
         errorMessage = "Location information unavailable";
       }
-      
+
       setError(errorMessage);
       speak(errorMessage, true);
     } finally {
@@ -187,7 +205,9 @@ const LocationScreen = () => {
     speak("Share on WhatsApp", true);
     if (coordinates) {
       const coordText = `(Latitude: ${coordinates.lat.toFixed(4)}, Longitude: ${coordinates.lng.toFixed(4)})`;
-      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`I'm currently at ${fullAddress}. ${coordText}`)}`;
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
+        `I'm currently at ${fullAddress}. ${coordText}`
+      )}`;
       window.open(whatsappUrl, "_blank");
     } else {
       speak("Please wait while we get your location.", true);
@@ -208,15 +228,15 @@ const LocationScreen = () => {
     <div className="location-screen">
       <div className="location-decoration location-decoration-top"></div>
       <div className="location-decoration location-decoration-bottom"></div>
-      
-      <button 
-        onClick={handleBack} 
+
+      <button
+        onClick={handleBack}
         className="location-back-button"
         onFocus={() => speak("Back button", true)}
       >
         ← Back
       </button>
-      
+
       {isLoading ? (
         <div className="location-loading">
           <div className="location-spinner"></div>
@@ -227,7 +247,7 @@ const LocationScreen = () => {
           <h1 className="location-title">
             <span>Location</span> Finder
           </h1>
-          
+
           {error ? (
             <div className="location-error">{error}</div>
           ) : (
@@ -236,10 +256,10 @@ const LocationScreen = () => {
               <div className="location-place-name">{displayAddress}</div>
             </div>
           )}
-          
+
           <div className="location-actions">
-            <button 
-              onClick={handleRefresh} 
+            <button
+              onClick={handleRefresh}
               className="location-button button-primary"
               onFocus={() => speak(error ? "Try again" : "Refresh location", true)}
             >
@@ -256,7 +276,7 @@ const LocationScreen = () => {
           </div>
         </div>
       )}
-      
+
       <div className="location-footer">
         <p>Your privacy is important to us</p>
       </div>

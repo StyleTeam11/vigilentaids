@@ -62,7 +62,7 @@
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.8s forwards;
-  color: white;
+  color: black;
 }
 
 .title-part.accent {

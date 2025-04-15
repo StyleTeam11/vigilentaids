@@ -72,7 +72,7 @@ const App: React.FC = () => {
     }
 
     document.querySelector('.welcome-container')?.classList.add('fade-out');
-    setTimeout(() => navigate("/login"), 500);
+    setTimeout(() =>   navigate("/login"), 300);
   };
 
   return (
